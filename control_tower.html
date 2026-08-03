@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ko" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>통합 관제 — 2026-08-03</title>
+<style>
+  :root {
+    --bg:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --ring:rgba(11,11,11,.10); --hair:#e1e0d9;
+    --good:#0ca30c; --warn:#fab219; --crit:#d03b3b; --info:#7a7975; --na:#b6b5ae;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where([data-theme="auto"]) {
+      --bg:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#898781;
+      --ring:rgba(255,255,255,.10); --hair:#2c2c2a;
+      --good:#0ca30c; --warn:#fab219; --crit:#d03b3b; --info:#a3a29b; --na:#55554f;
+    }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI","Malgun Gothic",sans-serif;
+    -webkit-font-smoothing:antialiased; padding:24px 16px 56px; }
+  .ct-wrap { max-width:1040px; margin:0 auto; }
+  .ct-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 16px; margin-bottom:4px; }
+  .ct-head h1 { font-size:20px; margin:0; letter-spacing:-.01em; }
+  .ct-date { color:var(--ink2); font-size:14px; font-variant-numeric:tabular-nums; }
+  .ct-regime { margin-left:auto; font-size:13px; font-weight:600; padding:3px 10px;
+    border-radius:999px; border:1px solid var(--ring); }
+  .ct-regime.ct-warn { color:#8a5a00; } .ct-regime.ct-good { color:#0a6b0a; }
+  @media (prefers-color-scheme:dark){ :root:where([data-theme="auto"]) .ct-regime.ct-warn{color:#fab219} :root:where([data-theme="auto"]) .ct-regime.ct-good{color:#33c433} }
+  .ct-banner { display:flex; align-items:center; gap:12px; margin:14px 0 22px;
+    padding:14px 16px; background:var(--surface); border:1px solid var(--ring);
+    border-left:4px solid var(--info); border-radius:12px; }
+  .ct-banner.crit { border-left-color:var(--crit); }
+  .ct-banner.warn { border-left-color:var(--warn); }
+  .ct-banner.good { border-left-color:var(--good); }
+  .ct-banner .big { font-size:15px; font-weight:700; }
+  .ct-counts { margin-left:auto; display:flex; gap:14px; font-size:13px; color:var(--ink2);
+    font-variant-numeric:tabular-nums; }
+  .ct-counts b { font-size:15px; }
+  .cc-red b{color:var(--crit)} .cc-yel b{color:var(--warn)} .cc-grn b{color:var(--good)}
+  .ct-section { margin:26px 0; }
+  .ct-sec-head { display:flex; align-items:baseline; gap:10px; margin:0 2px 12px;
+    border-bottom:1px solid var(--hair); padding-bottom:7px; }
+  .ct-sec-head h2 { font-size:15px; margin:0; }
+  .ct-sec-sub { color:var(--muted); font-size:12.5px; }
+  .ct-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(232px,1fr)); gap:12px; }
+  .ct-card { background:var(--surface); border:1px solid var(--ring);
+    border-left:3px solid var(--info); border-radius:12px; padding:13px 14px; }
+  .ct-card.ct-crit { border-left-color:var(--crit); }
+  .ct-card.ct-warn { border-left-color:var(--warn); }
+  .ct-card.ct-good { border-left-color:var(--good); }
+  .ct-card.ct-na { border-left-color:var(--na); }
+  .ct-card.ct-dim { opacity:.62; border-style:dashed; }
+  .ct-tag { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700;
+    letter-spacing:.02em; text-transform:uppercase; }
+  .ct-dot { font-size:11px; line-height:1; }
+  .ct-crit .ct-tag,.ct-crit .ct-dot { color:var(--crit); }
+  .ct-warn .ct-tag,.ct-warn .ct-dot { color:#9a6500; }
+  @media (prefers-color-scheme:dark){ :root:where([data-theme="auto"]) .ct-warn .ct-tag, :root:where([data-theme="auto"]) .ct-warn .ct-dot {color:var(--warn)} }
+  .ct-good .ct-tag,.ct-good .ct-dot { color:#0a6b0a; }
+  @media (prefers-color-scheme:dark){ :root:where([data-theme="auto"]) .ct-good .ct-tag, :root:where([data-theme="auto"]) .ct-good .ct-dot {color:var(--good)} }
+  .ct-info .ct-tag,.ct-info .ct-dot { color:var(--muted); }
+  .ct-na .ct-tag,.ct-na .ct-dot { color:var(--muted); }
+  .ct-sys { margin-top:8px; font-size:12px; color:var(--muted); }
+  .ct-ind { font-size:13.5px; color:var(--ink2); margin-top:1px; }
+  .ct-val { font-size:16px; font-weight:700; margin-top:6px; letter-spacing:-.01em; line-height:1.3; }
+  .ct-read { font-size:12px; color:var(--ink2); margin-top:8px; line-height:1.55; }
+  .ct-basis { font-size:11.5px; color:var(--ink2); margin-top:8px; line-height:1.5;
+    background:rgba(137,135,129,.10); border-radius:7px; padding:6px 8px; }
+  .ct-basis span { display:inline-block; font-weight:700; font-size:10px; letter-spacing:.03em;
+    color:var(--muted); border:1px solid var(--ring); border-radius:4px; padding:0 5px; margin-right:5px; }
+  .ct-detail { font-size:11px; color:var(--muted); margin-top:7px; line-height:1.5; }
+  .ct-guide { background:var(--surface); border:1px solid var(--ring); border-radius:12px;
+    padding:13px 16px; margin:4px 0 8px; font-size:12.5px; color:var(--ink2); line-height:1.7; }
+  .ct-guide b { color:var(--ink); }
+  .ct-guide .pill { display:inline-flex; align-items:center; gap:5px; margin-right:4px; }
+  .ct-guide .lg { width:9px; height:9px; border-radius:2px; display:inline-block; }
+  .ct-foot { margin-top:34px; color:var(--muted); font-size:11.5px; line-height:1.7;
+    border-top:1px solid var(--hair); padding-top:12px; }
+  .ct-legend { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:6px; }
+  .ct-legend span { display:inline-flex; align-items:center; gap:5px; }
+  .lg { width:9px; height:9px; border-radius:2px; display:inline-block; }
+</style>
+</head>
+<body>
+  <div class="ct-wrap">
+    <div class="ct-head">
+      <h1>📡 통합 관제</h1>
+      <span class="ct-date">2026-08-03</span>
+      <span class="ct-regime ct-warn">하락장 (KODEX -11.9%)</span>
+    </div>
+
+    <div class="ct-banner warn">
+      <span class="big">주의 4건 — 방어적 관찰 국면</span>
+      <span class="ct-counts">
+        <span class="cc-red">위험 <b>0</b></span>
+        <span class="cc-yel">주의 <b>4</b></span>
+        <span class="cc-grn">정상 <b>2</b></span>
+      </span>
+    </div>
+
+    <div class="ct-guide">
+      <b>이 화면 읽는 법.</b>
+      각 카드의 <b>색</b>은 지금 상태 —
+      <span class="pill"><i class="lg" style="background:var(--good)"></i>정상</span>
+      <span class="pill"><i class="lg" style="background:var(--warn)"></i>주의</span>
+      <span class="pill"><i class="lg" style="background:var(--crit)"></i>위험</span>
+      순으로 조심. 카드 안의 <b>「기준」</b> 줄이 <b>색이 바뀌는 경계선</b>이라, 지금 값이 어느 쪽으로 움직여야
+      정상/위험이 되는지 바로 보입니다.
+      위쪽 <b>구조·선행 리스크</b>는 "판이 바뀌는 큰 흐름"(느리지만 중요), 아래 <b>전술·순환 신호</b>는
+      "지금 사고팔 타이밍"(빠른 신호). <b>구조에 빨간불</b>이 켜지면 전술 신호보다 구조를 우선합니다.
+    </div>
+
+    <section class="ct-section">
+      <div class="ct-sec-head"><h2>구조·선행 리스크</h2><span class="ct-sec-sub">이게 흔들리면 판이 바뀐다 (State)</span></div>
+      <div class="ct-grid">
+      <div class="ct-card ct-warn">
+        <div class="ct-tag"><span class="ct-dot">●</span>주의</div>
+        <div class="ct-sys">무역대시보드</div>
+        <div class="ct-ind">주의 하이라이트(2026-07)</div>
+        <div class="ct-val">5건 / 전체 11건</div>
+        <div class="ct-read">월간 수출 데이터에서 자동 감지된 '주의·가격착시' 업종 수. 물량은 주는데 금액만 늘거나(가격착시), 전월 최고 뒤 꺾인 업종 등.</div>
+        <div class="ct-basis"><span>기준</span> 주의류 3건 미만 = 정상 · 3건 이상 = 주의</div>
+        <div class="ct-detail">지금: 주의 업종: 컴퓨터, 석유제품, 바이오헬스, 석유화학, 자동차</div>
+      </div>
+      <div class="ct-card ct-good">
+        <div class="ct-tag"><span class="ct-dot">●</span>정상</div>
+        <div class="ct-sys">SOX 순환매</div>
+        <div class="ct-ind">HY 신용스프레드(OAS)</div>
+        <div class="ct-val">2.84% (+0.10p/1M)</div>
+        <div class="ct-read">미국 하이일드(정크)채권 가산금리. 오르면 시장이 위험을 피한다는 뜻 = 반도체 같은 위험자산의 '분위기 온도계'.</div>
+        <div class="ct-basis"><span>기준</span> 최근 1개월 변화 +0.20%p 미만 = 정상 · +0.20~0.50 = 주의 · +0.50 이상 = 위험</div>
+        <div class="ct-detail">지금: 확대 = 위험선호 후퇴 신호</div>
+      </div>
+      <div class="ct-card ct-info">
+        <div class="ct-tag"><span class="ct-dot">·</span>정보</div>
+        <div class="ct-sys">뉴스모니터</div>
+        <div class="ct-ind">비관③ 전력/데이터센터 지연</div>
+        <div class="ct-val">최근7일 14건</div>
+        <div class="ct-read">AI 인프라(전력·데이터센터) 지연을 다루는 약세 뉴스가 얼마나 들어오는지. 평소보다 급증하면 그 약세 논거가 힘을 얻는 중.</div>
+        <div class="ct-basis"><span>기준</span> 최근 7일 건수가 평소(직전 4주 주평균)의 1.5배 미만 = 참고 · 1.5배 이상 = 주의</div>
+        <div class="ct-detail">지금: 직전4주 주평균 13.2건 대비 1.1배</div>
+      </div>
+      <div class="ct-card ct-na ct-dim">
+        <div class="ct-tag"><span class="ct-dot">○</span>미연동</div>
+        <div class="ct-sys">반도체 장기포지션</div>
+        <div class="ct-ind">EXIT 신호</div>
+        <div class="ct-val">미연동</div>
+        <div class="ct-read">아직 데이터 소스가 연결 안 된 자리. 해당 시스템의 DB가 생기면 자동으로 값이 채워짐.</div>
+        <div class="ct-basis"><span>기준</span> 해당 없음 — 준비 중</div>
+        <div class="ct-detail">지금: rotation_tracker.gs(Google Sheets) 소스 위치 미확정</div>
+      </div>
+      <div class="ct-card ct-na ct-dim">
+        <div class="ct-tag"><span class="ct-dot">○</span>미연동</div>
+        <div class="ct-sys">DSI·CAPEX/FCF</div>
+        <div class="ct-ind">재고회전/현금흐름</div>
+        <div class="ct-val">미착수</div>
+        <div class="ct-read">아직 데이터 소스가 연결 안 된 자리. 해당 시스템의 DB가 생기면 자동으로 값이 채워짐.</div>
+        <div class="ct-basis"><span>기준</span> 해당 없음 — 준비 중</div>
+        <div class="ct-detail">지금: DART API 키 발급 대기</div>
+      </div>
+      <div class="ct-card ct-na ct-dim">
+        <div class="ct-tag"><span class="ct-dot">○</span>미연동</div>
+        <div class="ct-sys">AI 밸류체인</div>
+        <div class="ct-ind">감가상각/공시중단 경고등</div>
+        <div class="ct-val">미착수</div>
+        <div class="ct-read">아직 데이터 소스가 연결 안 된 자리. 해당 시스템의 DB가 생기면 자동으로 값이 채워짐.</div>
+        <div class="ct-basis"><span>기준</span> 해당 없음 — 준비 중</div>
+        <div class="ct-detail">지금: 실행 스크립트 미구현</div>
+      </div></div>
+    </section>
+    <section class="ct-section">
+      <div class="ct-sec-head"><h2>전술·순환 신호</h2><span class="ct-sec-sub">지금 사고팔 타이밍 (Observable)</span></div>
+      <div class="ct-grid">
+      <div class="ct-card ct-warn">
+        <div class="ct-tag"><span class="ct-dot">●</span>주의</div>
+        <div class="ct-sys">수익함대</div>
+        <div class="ct-ind">오늘 청산신호(절반/손절)</div>
+        <div class="ct-val">4건</div>
+        <div class="ct-read">보유분을 줄이라는 신호(절반청산+손절)가 오늘 몇 건인지. 늘어나면 방어 국면. 0이면 이 카드는 아예 안 뜸.</div>
+        <div class="ct-basis"><span>기준</span> 1건 이상 = 주의(방어적으로 관찰)</div>
+        <div class="ct-detail">지금: HALF_EXIT/STOP_LOSS 합계</div>
+      </div>
+      <div class="ct-card ct-warn">
+        <div class="ct-tag"><span class="ct-dot">●</span>주의</div>
+        <div class="ct-sys">SOX 순환매</div>
+        <div class="ct-ind">반도체(SOXX) 상대강도</div>
+        <div class="ct-val">77% of high (-4.2p vs 2026-07-27)</div>
+        <div class="ct-read">필라델피아 반도체지수(SOXX)가 자기 52주 신고가의 몇 %에 있는지. 100%면 신고가, 낮을수록 고점에서 밀려남 = 반도체 모멘텀의 세기.</div>
+        <div class="ct-basis"><span>기준</span> 80% 이상 = 정상 · 60~80% = 주의 · 60% 이하 = 위험</div>
+        <div class="ct-detail">지금: 기준일 2026-08-03, 폭(breadth) 87%</div>
+      </div>
+      <div class="ct-card ct-good">
+        <div class="ct-tag"><span class="ct-dot">●</span>정상</div>
+        <div class="ct-sys">SOX 순환매</div>
+        <div class="ct-ind">반도체 자금흐름</div>
+        <div class="ct-val">5일 +3440 / 1개월 +7670</div>
+        <div class="ct-read">반도체 ETF로 돈이 들어오는지(5일·1개월 순유입). 둘 다 +면 자금이 아직 남아있음. -로 돌면 이탈 시작 신호.</div>
+        <div class="ct-basis"><span>기준</span> 5일·1개월 모두 순유입(+) = 정상 · 하나라도 유출(-) = 주의</div>
+        <div class="ct-detail">지금: AUM/거래대금 기반 순유입(추정)</div>
+      </div>
+      <div class="ct-card ct-info">
+        <div class="ct-tag"><span class="ct-dot">·</span>정보</div>
+        <div class="ct-sys">수익함대</div>
+        <div class="ct-ind">오늘 신규 우선신호(S/A)</div>
+        <div class="ct-val">0건</div>
+        <div class="ct-read">오늘 스캔에서 나온 최우선(S)·우선(A)등급 매수후보 수. 0이면 지금 새로 살 상위신호가 없다는 뜻 — 하락장에선 0이 잦고 그게 정상.</div>
+        <div class="ct-basis"><span>기준</span> 참고용(색 없음) — 개수만 표시</div>
+        <div class="ct-detail">지금: 2026-08-03 전체: BUY_C 28, HALF_EXIT 4</div>
+      </div>
+      <div class="ct-card ct-info">
+        <div class="ct-tag"><span class="ct-dot">·</span>정보</div>
+        <div class="ct-sys">수익함대</div>
+        <div class="ct-ind">성과추적·A등급 전체</div>
+        <div class="ct-val">n=21, 평균 -16.8%, 승률 10%</div>
+        <div class="ct-read">최근 신호들의 평균수익률·승률. '지금 신호매매가 먹히는 장인지'를 보는 가늠자 — 하락장에선 낮게 나오는 게 정상.</div>
+        <div class="ct-basis"><span>기준</span> 참고용 — 절대값보다 추세로 해석</div>
+        <div class="ct-detail">지금: 기준일 2026-08-03, 중앙값 -21.7%</div>
+      </div></div>
+    </section>
+    <section class="ct-section">
+      <div class="ct-sec-head"><h2>시장 국면</h2><span class="ct-sec-sub">전체 맥락</span></div>
+      <div class="ct-grid">
+      <div class="ct-card ct-warn">
+        <div class="ct-tag"><span class="ct-dot">●</span>주의</div>
+        <div class="ct-sys">수익함대</div>
+        <div class="ct-ind">시장국면</div>
+        <div class="ct-val">하락장 (KODEX -11.9%)</div>
+        <div class="ct-read">코스피200(KODEX200)이 20일 이동평균선 위면 상승장, 아래면 하락장. 수익함대가 신규매수를 켤지 끌지 정하는 스위치.</div>
+        <div class="ct-basis"><span>기준</span> 정상 = 상승장(20일선 위) · 주의 = 하락장(20일선 아래)</div>
+        <div class="ct-detail">지금: 기준일 2026-08-03, KODEX200 20일선 대비 이격</div>
+      </div></div>
+    </section>
+
+    <div class="ct-foot">
+      <div class="ct-legend">
+        <span><i class="lg" style="background:var(--crit)"></i>위험(Red)</span>
+        <span><i class="lg" style="background:var(--warn)"></i>주의(Yellow)</span>
+        <span><i class="lg" style="background:var(--good)"></i>정상(Green)</span>
+        <span><i class="lg" style="background:var(--muted)"></i>정보/미연동</span>
+      </div>
+      통합 관제 자동 집계 · 생성 2026-08-03 22:35 · 누적 1일치 · 데이터 기반 참고 정보 (투자 결정은 본인 판단)
+    </div>
+  </div>
+</body>
+</html>

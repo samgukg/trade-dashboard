@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메모리 사이클 종합판 — 수급 4각</title>
+<style>
+:root{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+--grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--s1:#2a78d6;--s2:#eb6834;
+--good:#0ca30c;--warn:#fab219;--crit:#d03b3b;--goodink:#006300}
+:root[data-theme=dark]{--plane:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+--grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--s1:#3987e5;--s2:#d95926;--goodink:#0ca30c}
+*{box-sizing:border-box}body{margin:0;background:var(--plane);color:var(--ink);
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;padding:28px 16px 60px}
+.wrap{max-width:880px;margin:0 auto}.card{background:var(--surface);border:1px solid var(--border);
+border-radius:16px;padding:26px 28px;margin-bottom:18px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+h1{font-size:23px;margin:0 0 3px}.sub{color:var(--ink2);font-size:13.5px}
+.src{font-size:11.5px;color:var(--muted);margin-top:5px}
+.verdict{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;
+padding:9px 16px;border-radius:999px;color:#fff;white-space:nowrap}
+h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--s1);margin:2px 0 12px}
+.lead{font-size:16.5px;font-weight:600;line-height:1.5;margin:0}
+.lead em{font-style:normal;background:linear-gradient(transparent 62%,rgba(12,163,12,.22) 0);padding:0 2px}
+.quad{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.sig{border:1px solid var(--border);border-radius:13px;padding:15px 16px}
+.sig .h{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);font-weight:600}
+.sig .dot{width:10px;height:10px;border-radius:50%}
+.sig .v{font-size:19px;font-weight:800;margin-top:6px;font-variant-numeric:tabular-nums}
+.sig .z{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.4}
+.gdot{background:var(--good)}.rdot{background:var(--crit)}.ydot{background:var(--warn)}.ndot{background:var(--muted)}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--ink2);margin:4px 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}.sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+.note{font-size:13px;color:var(--ink2);margin-top:12px}
+.toggle{cursor:pointer;font-size:12px;color:var(--ink2);background:var(--surface);border:1px solid var(--border);
+border-radius:8px;padding:6px 12px}.foot{font-size:11.5px;color:var(--muted);text-align:center;margin-top:6px}
+@media(max-width:640px){.quad{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<div style="display:flex;justify-content:flex-end;margin-bottom:10px"><button class="toggle" id="tg">◐ 라이트/다크</button></div>
+<div class="card"><div class="top"><div>
+<h1>메모리 사이클 종합판 — 수급 4각</h1>
+<div class="sub">control_tower의 메모리 신호 4종을 한 화면에 — 가격 · 물량 · 투자 · 재고회전</div>
+<div class="src">DART·산업부·관세청 1차 소스 · 자동 생성 2026-08-06 11:30 · 계산은 코드 실행 · 매매신호 아님</div>
+</div><div class="verdict" style="background:var(--good)">🟢 수급 타이트 · 강세</div></div>
+<p class="lead" style="margin-top:14px">네 지표 중 <em>셋(가격·투자·재고회전)이 모두 '타이트'</em>를 가리키고, 유일한 🔴(물량)은 <em>기저효과 착시로 판정</em>. 메모리 사이클은 <em>가격이 뜨겁고 재고가 소진되는 상승 국면</em>입니다.</p></div>
+<div class="card"><h2>수급 4각 신호</h2><div class="quad"><div class="sig"><div class="h"><span class="dot gdot"></span>① 가격 · 메모리 계약가 </div><div class="v" style="color:var(--goodink)">DRAM +12.5% · NAND +4.5%</div><div class="z">2026-07 계약가 MoM · DDR5 16Gb·NAND 128Gb($). 상승 지속=수급 강세.</div></div><div class="sig"><div class="h"><span class="dot rdot"></span>② 물량 · 수출 중량 </div><div class="v" style="color:var(--crit)">-20.2% → 착시 판정</div><div class="z">2026-06 · 금액 +373%=가격×물량, 단가 +492%. −20%는 2025-06 피크 기저 = 감산 아님(판정 완료). 동진의 잘못된 프록시.</div></div><div class="sig"><div class="h"><span class="dot gdot"></span>③ 투자 · CapEx </div><div class="v" style="color:var(--goodink)">SK CapEx +21.9% · 재고 +9.8%</div><div class="z">2026 1Q · 투자 확장 = 소재 수요 선행 호재 · 재고 증가 +9.8%. 미래 웨이퍼 capa(6~12개월 선행).</div></div><div class="sig"><div class="h"><span class="dot gdot"></span>④ 재고회전 · DSI </div><div class="v" style="color:var(--goodink)">SK 133일 · YoY -42일</div><div class="z">2026 1Q · 재고 소진 = 수급 타이트(가동률↑). DSI↓=재고 소진(타이트).</div></div></div>
+<p class="note"><b>정합성:</b> 가격↑·투자↑·재고↓(DSI 하락)는 교과서적 <b>상승 사이클 정렬</b>. 유일한 역행(물량 −20%)은 정밀 진단으로 <b>기저효과 착시</b> 확정 — 실질 4각은 타이트를 가리킴.</p></div>
+
+  <div class="card">
+    <h2>재고회전(DSI) 추이 — SK하이닉스 vs 삼성</h2>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--s1)"></span>SK하이닉스</span>
+      <span><span class="sw" style="background:var(--s2)"></span>삼성전자</span>
+      <span style="color:var(--muted)">— DSI(일) 낮을수록 재고 타이트 · 매출원가 기준</span>
+    </div>
+    <svg id="chart" viewBox="0 0 660 280" width="100%" role="img" aria-label="DSI 추이"></svg>
+  </div>
+
+<div class="foot">메모리 수급 4각: 가격(계약가)·물량(수출중량, 착시판정)·투자(CapEx)·재고회전(DSI) · control_tower L1 통합<br>
+숫자 전량 1차 소스(DART·산업부·관세청) · build_cockpit.py 자동 생성 · 매매신호 아님, 본인 책임</div>
+</div>
+<script>
+var D={"sk": [147.8, 141.4, 135.6, 133.4], "ss": [104.5, 101.3, 95.0, 102.1], "lo": 80, "hi": 160, "grid": [80, 100, 120, 140, 160], "sk_yoy": -42.3, "ss_yoy": 7.2};
+var svg=document.getElementById('chart');
+if(svg && D.sk){
+ var NS='http://www.w3.org/2000/svg',yrs=['2023','2024','2025','2026 1Q'];
+ var W=660,H=280,padL=40,padR=58,padT=16,padB=34,plotW=W-padL-padR,plotH=H-padT-padB;
+ var lo=D.lo,hi=D.hi;
+ function yOf(v){return padT+(hi-v)/(hi-lo)*plotH;} function xOf(i){return padL+i/3*plotW;}
+ var css=getComputedStyle(document.documentElement);
+ function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+ function line(arr,col,lab){var pts=arr.map(function(v,i){return [i,v];}).filter(function(p){return p[1]!=null;});
+  for(var i=0;i<pts.length-1;i++)svg.appendChild(el('line',{x1:xOf(pts[i][0]),y1:yOf(pts[i][1]),x2:xOf(pts[i+1][0]),y2:yOf(pts[i+1][1]),stroke:col,'stroke-width':2.4,'stroke-linecap':'round'}));
+  pts.forEach(function(p){var d=el('circle',{cx:xOf(p[0]),cy:yOf(p[1]),r:3.4,fill:col});var t=el('title',{});t.textContent=yrs[p[0]]+': '+p[1]+'일';d.appendChild(t);svg.appendChild(d);});
+  if(pts.length){var last=pts[pts.length-1];var tx=el('text',{x:W-padR+5,y:yOf(last[1])+4,fill:col,'font-size':11,'font-weight':700,'font-family':'system-ui'});tx.textContent=lab+' '+Math.round(last[1]);svg.appendChild(tx);} }
+ function draw(){svg.innerHTML='';D.grid.forEach(function(g){svg.appendChild(el('line',{x1:padL,x2:W-padR,y1:yOf(g),y2:yOf(g),stroke:css.getPropertyValue('--grid'),'stroke-width':1}));
+   var t=el('text',{x:padL-7,y:yOf(g)+4,'text-anchor':'end',fill:css.getPropertyValue('--muted'),'font-size':10.5,'font-family':'system-ui'});t.textContent=g;svg.appendChild(t);});
+  yrs.forEach(function(y,i){var t=el('text',{x:xOf(i),y:H-padB+18,'text-anchor':'middle',fill:css.getPropertyValue('--ink2'),'font-size':11,'font-family':'system-ui'});t.textContent=y;svg.appendChild(t);});
+  line(D.ss,css.getPropertyValue('--s2'),'삼성');line(D.sk,css.getPropertyValue('--s1'),'SK');}
+ draw();window._draw=draw;
+}
+document.getElementById('tg').onclick=function(){var r=document.documentElement;r.setAttribute('data-theme',r.getAttribute('data-theme')==='light'?'dark':'light');if(window._draw)window._draw();};
+</script></body></html>

@@ -96,7 +96,7 @@
     <div style="margin:8px 0 4px"><a href="memory_cycle_cockpit.html" style="display:inline-block;font-size:12.5px;font-weight:600;padding:5px 11px;border:1px solid rgba(128,128,128,.35);border-radius:8px;text-decoration:none;color:inherit">🧭 메모리 수급 4각(cockpit) →</a></div>
 
     <div class="ct-banner crit">
-      <span class="big">위험 1건 — 5장 액션 매뉴얼 확인</span>
+      <span class="big">위험 1건 — 하단 📖 액션 매뉴얼 확인</span>
       <span class="ct-counts">
         <span class="cc-red">위험 <b>1</b></span>
         <span class="cc-yel">주의 <b>6</b></span>
@@ -169,8 +169,8 @@
         <div class="ct-sys">AI 밸류체인</div>
         <div class="ct-ind">메모리 투자·재고 사이클</div>
         <div class="ct-val">CapEx +21.9% · 재고 +9.8% YoY</div>
-        
-        
+        <div class="ct-read">메모리 제조사(SK하이닉스 기준)의 설비투자(CapEx). 투자가 늘면 6~12개월 뒤 웨이퍼 생산능력이 늘어난다 = 반도체 소재·장비 수요의 선행 지표.</div>
+        <div class="ct-basis"><span>기준</span> CapEx YoY +10% 이상 = 정상(확장) · −10~+10% = 주의(유지) · −10% 이하 = 위험(축소)</div>
         <div class="ct-detail">지금: SK하이닉스 2026 1Q 기준 · 투자 확장 = 소재 수요 선행 호재 · 재고 증가 +9.8% — 수출 중량 대신 투자·재고로 본 소재 수요 선행</div>
       </div>
       <div class="ct-card ct-good">
@@ -178,8 +178,8 @@
         <div class="ct-sys">AI 밸류체인</div>
         <div class="ct-ind">메모리 재고회전(DSI)</div>
         <div class="ct-val">133일 · YoY -42일</div>
-        
-        
+        <div class="ct-read">재고회전일(DSI) = 재고가 며칠치 원가를 덮고 있나. 줄어들면 재고가 소진되는 중(수급 타이트·가동률↑), 늘어나면 재고가 쌓이는 중(수요 둔화).</div>
+        <div class="ct-basis"><span>기준</span> 전년 대비 −3일 이하 = 정상(소진) · 3년 연속 상승 또는 +10일 이상 = 위험(누적) · 그 외 = 주의</div>
         <div class="ct-detail">지금: SK하이닉스 2026 1Q 기준 · 재고 소진 = 수급 타이트(가동률↑) · 매출원가 — 재고회전(수급 coincident). DSI↓=타이트, DSI↑=재고누적</div>
       </div>
       <div class="ct-card ct-good">
@@ -187,8 +187,8 @@
         <div class="ct-sys">우선순위 규칙</div>
         <div class="ct-ind">장기보유 신규진입</div>
         <div class="ct-val">정상 (억제 없음)</div>
-        
-        
+        <div class="ct-read">위의 메모리 구조신호(단가·투자·재고회전·모멘텀)를 종합해, 장기보유 반도체 3종의 '신규진입 국면'을 자동 분류한 참고 카드. 실제 매매를 막지는 않음(권고 단계).</div>
+        <div class="ct-basis"><span>기준</span> 구조신호 위험 2개 이상 = 억제 권고 · 위험 1개 또는 주의 2개 이상 = 신중 · 그 외 = 정상</div>
         <div class="ct-detail">지금: 대상 삼성전자(005930)·SK하이닉스(000660)·삼성전기(009150) · 구조신호 red 0·yellow 1/4 · 주의원: 반도체 수출 모멘텀(ΔYoY) · [1단계 권고] signal_filter 미변경 — 참고용, 구조 red 시 로테이션·개별신호보다 우선</div>
       </div>
       <div class="ct-card ct-info">
@@ -291,6 +291,16 @@
       </div></div>
     </section>
 
+    <details style="margin:20px 0 6px;border:1px solid rgba(128,128,128,.32);border-radius:12px;padding:4px 18px 6px">
+      <summary style="cursor:pointer;padding:11px 0;font-weight:700;font-size:14.5px">📖 액션 매뉴얼 — 색이 켜지면 무엇을 보나 (펼치기)</summary>
+      <div style="font-size:13px;opacity:.85;padding:2px 0 10px">경고·위험은 '팔라'는 신호가 아니라 <b>확인 순서</b>입니다. 카드별 「기준」이 색의 경계선이고, 아래는 색이 켜졌을 때의 대응 원칙입니다.</div>
+      <div style="padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22);font-size:13.5px;line-height:1.55"><b>메모리 단가 · 수출 모멘텀</b> — 주의(둔화/1개월 감속): 가격 주도 랠리의 약한 고리 — 감시 강화. 위험(하락 전환/2개월 연속 감속): 반도체 이익추정 하향 국면 — 신규 진입 보수적으로, 리레이팅 논리 재검증.</div>
+      <div style="padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22);font-size:13.5px;line-height:1.55"><b>가격 vs 물량 괴리</b> — 위험(가격착시)이어도 단독 판단 금지: 수출 '중량'은 고부가 믹스(HBM 등) 이동으로 실제 수요를 왜곡할 수 있음 — 단가·투자·재고회전과 <b>교차검증</b> 후 판단(상단 cockpit 링크에 종합판 있음).</div>
+      <div style="padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22);font-size:13.5px;line-height:1.55"><b>투자(CapEx) · 재고회전(DSI)</b> — 주의(2분기 연속 악화): 관련 비중 재검토 착수. 위험(투자 축소/재고 3년 연속 누적): 신규 진입 억제 + 비중 축소 검토.</div>
+      <div style="padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22);font-size:13.5px;line-height:1.55"><b>HY 신용스프레드</b> — 주의(+0.2%p↑): 위험선호 후퇴 시작 — 공격적 포지션 자제. 위험(+0.5%p↑): 방어 모드 — 신규 매수 중단 검토.</div>
+      <div style="padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22);font-size:13.5px;line-height:1.55"><b>시장국면(하락장)</b> — 전술(타이밍) 신호의 신뢰도가 낮아지는 구간 — 신규 매수 기준을 평소보다 높게.</div>
+      <div style="padding:9px 0;border-bottom:1px solid rgba(128,128,128,.22);font-size:13.5px;line-height:1.55;border-bottom:0"><b>공통 원칙</b> — ① 구조(위쪽) 빨간불은 전술(아래쪽) 신호보다 우선한다. ② 구조 위험이 2개 이상이면 '장기보유 신규진입' 카드가 자동으로 억제 권고를 띄운다. ③ 이 화면은 매매신호가 아니라 판단 보조이며, 투자 결정과 결과는 본인 책임이다.</div>
+    </details>
     <div class="ct-foot">
       <div class="ct-legend">
         <span><i class="lg" style="background:var(--crit)"></i>위험(Red)</span>
@@ -298,7 +308,7 @@
         <span><i class="lg" style="background:var(--good)"></i>정상(Green)</span>
         <span><i class="lg" style="background:var(--muted)"></i>정보/미연동</span>
       </div>
-      통합 관제 자동 집계 · 생성 2026-08-10 21:35 · 누적 8일치 · 데이터 기반 참고 정보 (투자 결정은 본인 판단)
+      통합 관제 자동 집계 · 생성 2026-08-10 21:59 · 누적 8일치 · 데이터 기반 참고 정보 (투자 결정은 본인 판단)
     </div>
   </div>
 </body>
